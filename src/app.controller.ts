@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('Tpg')
@@ -20,4 +20,18 @@ export class AppController {
       }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @Get(':pgid')
+  async findRowsByPgId(@Param('pgid') pgid: string) {
+    try {
+      return await this.appService.findRowsByPgId(pgid);
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: 'There was a problem fetching the data.',
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  
+  
 }
