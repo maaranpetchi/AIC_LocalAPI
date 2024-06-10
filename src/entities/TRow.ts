@@ -50,9 +50,15 @@ export class TRow {
   @OneToMany(() => TItem, (tItem) => tItem.unit)
   tItems3: TItem[];
 
+  @Column("bigint", { name: "PG", nullable: true })
+  pg1: TPg;
+
   @ManyToOne(() => TPg, (tPg) => tPg.tRows)
   @JoinColumn([{ name: "PG", referencedColumnName: "pg" }])
   pg: TPg;
+
+  @Column("bigint", { name: "Parent-Row", nullable: true })
+  parentRow1: TRow;
 
   @ManyToOne(() => TRow, (tRow) => tRow.tRows)
   @JoinColumn([{ name: "Parent-Row", referencedColumnName: "row" }])
@@ -61,6 +67,9 @@ export class TRow {
   @OneToMany(() => TRow, (tRow) => tRow.parentRow)
   tRows: TRow[];
 
+  @Column("bigint", { name: "Row-Type", nullable: true })//added
+  rowType1: TRow;
+
   @ManyToOne(() => TRow, (tRow) => tRow.tRows2)
   @JoinColumn([{ name: "Row-Type", referencedColumnName: "row" }])
   rowType: TRow;
@@ -68,12 +77,18 @@ export class TRow {
   @OneToMany(() => TRow, (tRow) => tRow.rowType)
   tRows2: TRow[];
 
+  @Column("bigint", { name: "Share", nullable: true })//added
+  share1: TRow;
+
   @ManyToOne(() => TRow, (tRow) => tRow.tRows3)
   @JoinColumn([{ name: "Share", referencedColumnName: "row" }])
   share: TRow;
 
   @OneToMany(() => TRow, (tRow) => tRow.share)
   tRows3: TRow[];
+
+  @Column("bigint", { name: "Sibling-Row", nullable: true })//added
+  siblingRow1: TRow;
 
   @ManyToOne(() => TRow, (tRow) => tRow.tRows4)
   @JoinColumn([{ name: "Sibling-Row", referencedColumnName: "row" }])

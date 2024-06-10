@@ -1,7 +1,7 @@
-import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller('Tpg')
+@Controller('allpages')
 export class AppController {
   getHello(): any {
     throw new Error('Method not implemented.');
@@ -9,10 +9,10 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
 
-  @Get()
-  async findAll() {
+  @Get(':PgId')
+  async getRowsByPgId(@Param('PgId')PgId:bigint) {
     try {
-      return await this.appService.findAll();
+      return await this.appService.getRowsByPgId(PgId);
     } catch (error) {
       throw new HttpException({
         status: HttpStatus.INTERNAL_SERVER_ERROR,

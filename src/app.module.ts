@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { TCell } from './entities/TCell';
 import { TCol } from './entities/TCol';
@@ -20,9 +20,9 @@ import { TUser } from './entities/TUser';
       host: "localhost",
       port: 5432,
       username: 'postgres',
-      password: 'password@1',
+      password: 'Password@1',
       database: 'postgres',
-      entities: [TPg, TFormat, TRow,TCell,TCol,TItem,TTx,TUser],
+      entities: [TPg,TFormat,TRow,TCell,TCol,TItem,TTx,TUser],
       synchronize: false,
       ssl:false
     }),
