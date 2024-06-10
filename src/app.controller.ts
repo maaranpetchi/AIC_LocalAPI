@@ -19,5 +19,5 @@ export class AppController {
         error: 'There was a problem fetching the data.',
       }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-  }
+  } 
 }
