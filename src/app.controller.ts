@@ -7,8 +7,6 @@ export class AppController {
     throw new Error('Method not implemented.');
   }
   constructor(private readonly appService: AppService) {}
-
-
   @Get(':PgId')
   async getRowsByPgId(@Param('PgId')PgId:bigint) {
     try {
