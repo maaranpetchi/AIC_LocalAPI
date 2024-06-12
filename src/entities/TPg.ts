@@ -16,4 +16,7 @@ export class TPg {
 
   @OneToMany(() => TRow, (tRow) => tRow.pg)
   tRows: TRow[];
+
+  pageFormatDetails?: TFormat[];
+  
 }

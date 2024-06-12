@@ -6,17 +6,19 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { TCell } from "./TCell";
-import { TRow } from "./TRow";
 import { TUser } from "./TUser";
 import { TPg } from "./TPg";
 import { TCol } from "./TCol";
+import { TRow } from "./TRow";
 
 @Index("Format_pkey", ["format"], { unique: true })
 @Entity("t-Format", { schema: "public" })
 export class TFormat {
   @PrimaryGeneratedColumn({ type: "bigint", name: "Format" })
   format: string;
+
+  @Column("bigint", { name: "Object-Type" })
+  objectType: string;
 
   @Column("bigint", { name: "Object" })
   object: string;
@@ -45,6 +47,12 @@ export class TFormat {
   @Column("smallint", { name: "Item-Order", nullable: true })
   itemOrder: number | null;
 
+  @Column("bigint", { name: "Owner", nullable: true })
+  owner: string | null;
+
+  @Column("bigint", { name: "Default", nullable: true })
+  default: string | null;
+
   @Column("jsonb", { name: "Font-Style", nullable: true })
   fontStyle: object | null;
 
@@ -54,28 +62,15 @@ export class TFormat {
   @Column("jsonb", { name: "Comment", nullable: true })
   comment: object | null;
 
+  @Column("bigint", { name: "Deleted", nullable: true })
+  deleted: string | null;
+
   @Column("timestamp without time zone", { name: "Deleted-At", nullable: true })
   deletedAt: Date | null;
-
-  @ManyToOne(() => TCell, (tCell) => tCell.tFormats)
-  @JoinColumn([{ name: "Default", referencedColumnName: "cell" }])
-  default: TCell;
-
-  @ManyToOne(() => TRow, (tRow) => tRow.tFormats)
-  @JoinColumn([{ name: "Deleted", referencedColumnName: "row" }])
-  deleted: TRow;
 
   @ManyToOne(() => TUser, (tUser) => tUser.tFormats)
   @JoinColumn([{ name: "Deleted-By", referencedColumnName: "user" }])
   deletedBy: TUser;
-
-  @ManyToOne(() => TRow, (tRow) => tRow.tFormats2)
-  @JoinColumn([{ name: "Object-Type", referencedColumnName: "row" }])
-  objectType: TRow;
-
-  @ManyToOne(() => TUser, (tUser) => tUser.tFormats2)
-  @JoinColumn([{ name: "Owner", referencedColumnName: "user" }])
-  owner: TUser;
 
   @ManyToOne(() => TPg, (tPg) => tPg.tFormats)
   @JoinColumn([{ name: "PG-Level-Set", referencedColumnName: "pg" }])
@@ -89,15 +84,15 @@ export class TFormat {
   @JoinColumn([{ name: "PG-Search-Set", referencedColumnName: "pg" }])
   pgSearchSet: TPg;
 
-  @ManyToOne(() => TRow, (tRow) => tRow.tFormats3)
+  @ManyToOne(() => TRow, (tRow) => tRow.tFormats)
   @JoinColumn([{ name: "RowSet-Tick", referencedColumnName: "row" }])
   rowSetTick: TRow;
 
-  @ManyToOne(() => TRow, (tRow) => tRow.tFormats4)
+  @ManyToOne(() => TRow, (tRow) => tRow.tFormats2)
   @JoinColumn([{ name: "Unit", referencedColumnName: "row" }])
   unit: TRow;
 
-  @ManyToOne(() => TUser, (tUser) => tUser.tFormats3)
+  @ManyToOne(() => TUser, (tUser) => tUser.tFormats2)
   @JoinColumn([{ name: "User", referencedColumnName: "user" }])
   user: TUser;
 }

@@ -8,7 +8,7 @@ export class AppController {
   }
   constructor(private readonly appService: AppService) {}
   @Get(':PgId')
-  async getRowsByPgId(@Param('PgId')PgId:bigint) {
+  async getRowsByPgId(@Param('PgId')PgId:string) {
     try {
       return await this.appService.getRowsByPgId(PgId);
     } catch (error) {

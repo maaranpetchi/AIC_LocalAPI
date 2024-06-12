@@ -7,12 +7,16 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { TRow } from "./TRow";
+import { TFormat } from "./TFormat";
 
 @Index("Item_pkey", ["item"], { unique: true })
 @Entity("t-Item", { schema: "public" })
 export class TItem {
   @PrimaryGeneratedColumn({ type: "bigint", name: "Item" })
   item: string;
+
+  @Column("bigint", { name: "Data-Type" })
+  dataType: string;
 
   @Column("bigint", { name: "Object", nullable: true })
   object: string | null;
@@ -44,24 +48,13 @@ export class TItem {
   @Column("jsonb", { name: "Foreign", nullable: true })
   foreign: object | null;
 
-  @Column("bigint", { name: "Data-Type", nullable: false })
-  dataType1: TRow;
-
   @ManyToOne(() => TRow, (tRow) => tRow.tItems)
-  @JoinColumn([{ name: "Data-Type", referencedColumnName: "row" }])
-  dataType: TRow;
-
-  @Column("bigint", { name: "Std-Unit", nullable: true })
-  stdUnit1: TRow;
-
-  @ManyToOne(() => TRow, (tRow) => tRow.tItems2)
   @JoinColumn([{ name: "Std-Unit", referencedColumnName: "row" }])
   stdUnit: TRow;
 
-  @Column("bigint", { name: "Unit", nullable: true })
-  unit1: TRow;
-
-  @ManyToOne(() => TRow, (tRow) => tRow.tItems3)
+  @ManyToOne(() => TRow, (tRow) => tRow.tItems2)
   @JoinColumn([{ name: "Unit", referencedColumnName: "row" }])
   unit: TRow;
+
+  itemFormatDetails?: TFormat[];
 }
